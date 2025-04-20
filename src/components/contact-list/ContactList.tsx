@@ -1,15 +1,20 @@
 import React from "react";
-import { Contacts } from "../../types";
+import { ContactItem } from "../../types";
 import Contact from "../contact/Contact";
 import css from './ContactList.module.css';
 
-const ContactList: React.FC<Contacts> = (contactsList) => {
-  const { contacts } = contactsList;
+type Props = {
+  contactsList: ContactItem[];
+  onDelete: (id: string) => void;
+}
+
+const ContactList: React.FC<Props> = (props) => {
+  const { contactsList, onDelete } = props;
 
   return (
     <ul className={css.contacts}>
-      {contacts.map(contactItem => {
-        return <Contact {...contactItem} key={contactItem.id}></Contact>
+      {contactsList.map(contactItem => {
+        return <Contact item={contactItem} onDelete={onDelete} key={contactItem.id}></Contact>
       })}
     </ul>
   );
