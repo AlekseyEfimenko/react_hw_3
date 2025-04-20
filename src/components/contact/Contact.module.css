@@ -1,0 +1,22 @@
+.contact {
+  padding: 4px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-basis: calc((100% - (3 * 10px)) / 4);
+  min-width: 300px;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.contactText {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.contactButton {
+  height: fit-content;
+  cursor: pointer;
+}
