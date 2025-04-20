@@ -3,7 +3,7 @@ import contactsList from '../contacts.json';
 import ContactList from './contact-list/ContactList';
 import SearchBox from './search-box/SearchBox';
 import ContactForm from './contact-form/ContactForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ContactItem } from '../types';
 
 const list = {
@@ -12,7 +12,19 @@ const list = {
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [items, setItems] = useState(contactsList);
+  const [items, setItems] = useState(() => {
+    const storageContacts = window.localStorage.getItem("contacts");
+
+    if (storageContacts !== null) {
+      return JSON.parse(storageContacts) as ContactItem[];
+    }
+
+    return contactsList;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("contacts", JSON.stringify(items));
+  }, [items])
 
   list.contacts = items.filter(contact => contact.name.toLowerCase().includes(searchValue.toLowerCase()));
 
